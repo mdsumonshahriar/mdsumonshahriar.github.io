@@ -1,5 +1,14 @@
-<!DOCTYPE html>
-<html>
-  <head><title>My Personal Website</title></head>
-  <body><h1>Hello World! This is my GitHub personal site.</h1></body>
-</html>
+import { test, expect } from '@playwright/test';
+
+test('should load the personal homepage and verify the meta title', async ({ page }) => {
+  // 1. Swap with your live GitHub Pages URL or localhost string
+  await page.goto('https://github.io');
+
+  // 2. Validate the browser tab title text
+  await expect(page).toHaveTitle(/My Personal Website|Developer Portfolio/);
+
+  // 3. Confirm that the main visual heading is visible on the screen
+  const mainHeading = page.locator('h1');
+  await expect(mainHeading).toBeVisible();
+  await expect(mainHeading).toContainText('Hello World');
+});
